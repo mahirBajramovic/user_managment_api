@@ -1,0 +1,7 @@
+CREATE DATABASE user_managment;
+
+CREATE USER 'mahir'@'localhost' IDENTIFIED BY 'Mahir12345';
+
+GRANT ALL PRIVILEGES ON user_managment.* TO 'mahir'@'localhost';
+
+FLUSH PRIVILEGES;
