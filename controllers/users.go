@@ -39,6 +39,7 @@ func (u Users) List(res http.ResponseWriter, req *http.Request, _ httprouter.Par
 		return
 	}
 
+	// Uncomment to start using serverside pagination
 	/* 	count, err := models.UserCount(filter)
 	   	if err != nil {
 	   		services.Renderer.Render(res, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
@@ -76,6 +77,7 @@ func (u Users) Create(res http.ResponseWriter, req *http.Request, params httprou
 		services.Renderer.Render(res, http.StatusNotAcceptable, map[string]interface{}{"error": "Password length incompatible"})
 		return
 	}
+
 	err = u.User.Create()
 	if err != nil {
 		services.Renderer.Render(res, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
@@ -97,6 +99,7 @@ func (u Users) Update(res http.ResponseWriter, req *http.Request, _ httprouter.P
 		services.Renderer.Render(res, http.StatusNotAcceptable, map[string]interface{}{"error": errMsg})
 		return
 	}
+
 	err = u.User.Update()
 	if err != nil {
 		services.Renderer.Render(res, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})

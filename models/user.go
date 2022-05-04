@@ -15,6 +15,7 @@ type User struct {
 }
 
 type UserFilter struct {
+	// Uncomment to start using serverside pagination
 	/* 	Limit  int    `json:"limit" db:"Limit"`
 	   	Offset int    `json:"offset" db:"Offset"` */
 	Status string `json:"status" db:"Status"`
@@ -30,6 +31,8 @@ func UsersList(filter UserFilter) (users []User, err error) {
 	}
 
 	query += " ORDER BY id ASC"
+	// Uncomment to start using serverside pagination
+
 	/* 	query += " LIMIT :Offset, :Limit"
 	 */
 	db := services.Access.GetDB()
