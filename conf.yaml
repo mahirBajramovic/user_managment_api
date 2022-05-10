@@ -5,5 +5,5 @@
     user: "mahir"
     pass: "Mahir12345"
     name: "user_managment"
-    address: "localhost"
+    address: "database"
 
