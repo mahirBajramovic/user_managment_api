@@ -112,11 +112,27 @@ func (u Users) Update(res http.ResponseWriter, req *http.Request, _ httprouter.P
 func (u Users) Delete(res http.ResponseWriter, req *http.Request, params httprouter.Params) {
 	uid, _ := strconv.Atoi(params.ByName("id"))
 
-	err := models.UserDelete(uid)
+	tx, err := models.CreateTransaction()
 	if err != nil {
 		services.Renderer.Render(res, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
+		tx.Rollback()
 		return
 	}
+	err = models.DeleteUserPermissions(uid, tx)
+	if err != nil {
+		services.Renderer.Render(res, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
+		tx.Rollback()
+		return
+	}
+
+	err = models.UserDelete(uid, tx)
+	if err != nil {
+		services.Renderer.Render(res, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
+		tx.Rollback()
+		return
+	}
+
+	tx.Commit()
 
 	services.Renderer.Render(res, http.StatusOK, map[string]interface{}{"message": "User with id: " + strconv.Itoa(uid) + " has been deleted"})
 }

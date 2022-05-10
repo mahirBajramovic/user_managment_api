@@ -1,11 +1,8 @@
 # User Managment System
 
 ## Create DB
-```Create database user_managment``` <br />
-Execute commands from **db_create.txt**
-
-## Deploy DB and add mock data
-Run command ``` go run server.go --deploy ```
+docker-compose up
 
 ## Run
-Run with command ``` go run server.go ```
+First enter DockerFile and comment ```ENTRYPOINT go run server.go --deploy``` and uncomment ```ENTRYPOINT go run server.go```
+after that run docker-compose up --build

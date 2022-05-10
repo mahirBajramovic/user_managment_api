@@ -1,6 +1,8 @@
 package models
 
 import (
+	"database/sql"
+
 	"github.com/mahirB/user_managment_api/services"
 )
 
@@ -84,12 +86,10 @@ func (u *User) Create() error {
 	return err
 }
 
-func UserDelete(id int) error {
-	db := services.Access.GetDB()
-
+func UserDelete(id int, tx *sql.Tx) error {
 	query := `DELETE FROM user WHERE id = ?`
 
-	_, err := db.Exec(query, id)
+	_, err := tx.Exec(query, id)
 
 	return err
 }
@@ -118,4 +118,10 @@ func (u *User) Update() error {
 	_, err := db.NamedExec(query, u)
 
 	return err
+}
+
+func CreateTransaction() (tx *sql.Tx, err error) {
+	db := services.Access.GetDB()
+	tx, err = db.Begin()
+	return
 }

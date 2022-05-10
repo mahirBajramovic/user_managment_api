@@ -1,6 +1,10 @@
 package models
 
-import "github.com/mahirB/user_managment_api/services"
+import (
+	"database/sql"
+
+	"github.com/mahirB/user_managment_api/services"
+)
 
 type Permission struct {
 	ID          int    `json:"id" db:"id"`
@@ -60,4 +64,10 @@ func CreateUserPermissions(userID int, userPerms []UserPermission) error {
 	}
 
 	return nil
+}
+
+func DeleteUserPermissions(userID int, tx *sql.Tx) error {
+	_, err := tx.Exec("DELETE FROM user_permissions WHERE user_id=?", userID)
+
+	return err
 }

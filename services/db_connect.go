@@ -68,7 +68,8 @@ func NewAccess(conf DBConf) {
 
 	if conf.DBAddress != "" {
 		var err error
-		accessControl.SQLDB, err = sqlx.Connect(sqlDriver, conf.DBUser+":"+conf.DBPass+"@"+sqlProtocol+"("+conf.DBAddress+":"+sqlPort+")"+"/"+conf.DBName)
+		fmt.Println(conf.DBUser + ":" + conf.DBPass + "@" + sqlProtocol + "(" + "database" + ":" + sqlPort + ")" + "/" + conf.DBName)
+		accessControl.SQLDB, err = sqlx.Connect(sqlDriver, conf.DBUser+":"+conf.DBPass+"@"+sqlProtocol+"("+"database"+":"+sqlPort+")"+"/"+conf.DBName)
 
 		if err != nil {
 			panic("Error connecting to DB (" + err.Error() + ")")

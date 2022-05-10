@@ -47,7 +47,6 @@ func main() {
 	// Run it for Table deployment
 	if *deploy {
 		controllers.Deploy()
-		return
 	}
 
 	// Multiplexer

@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  user_managment_api:
+    build:
+      context: .
+      dockerfile: DockerFile
+      args:
+        RUNAS: deploy
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/user_managment_api
+    networks:
+      - my_network
+    depends_on:
+      - database
+    container_name: user_managment_api
+    environment:
+      - 'DB_PORT=3306'
+      - 'DB_HOST=database'
+
+  database:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: mahamaha1.1
+      MYSQL_USER: mahir
+      MYSQL_PASSWORD: Mahir12345
+      MYSQL_DATABASE: user_managment
+      MYSQL_ROOT_HOST: '%'
+    container_name: mysql-database
+    networks:
+      - my_network
+    ports:
+      - 3309:3306
+    volumes:
+      - mysql-data:/var/lib/mysql 
+
+volumes:
+  mysql-data:
+
+networks:
+  my_network:
+    driver: bridge
