@@ -17,7 +17,8 @@ var UserTable = `CREATE TABLE
 					email VARCHAR(100) NOT NULL , 
 					status INT NOT NULL DEFAULT '0' , 
 					PRIMARY KEY (id),
-					UNIQUE KEY (email)
+					UNIQUE KEY (email),
+					UNIQUE KEY (username)
 				) ENGINE = InnoDB;`
 
 var PermsTable = `CREATE TABLE 
@@ -83,6 +84,6 @@ func AddMockData() {
 	db.Exec(`insert into permissions (code,description) values ('View','You can view user with this permission')`)
 
 	for i := 1; i < 25; i++ {
-		db.Exec(`INSERT INTO user (first_name,last_name,username,password,email,status) VALUES ('Mahir','Bajramovic','Mahamaha','nekiPassword','mahir` + strconv.Itoa(i) + `@gmail.com',1)`)
+		db.Exec(`INSERT INTO user (first_name,last_name,username,password,email,status) VALUES ('Mahir','Bajramovic','Mahamaha` + strconv.Itoa(i) + `','nekiPassword','mahir` + strconv.Itoa(i) + `@gmail.com',1)`)
 	}
 }
