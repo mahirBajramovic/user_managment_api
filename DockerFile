@@ -10,5 +10,5 @@ RUN go mod download
 
 COPY . .
 
-ENTRYPOINT go run server.go --deploy
+ENTRYPOINT go run server.go ${DEPLOY}
 #ENTRYPOINT go run server.go 

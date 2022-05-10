@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: DockerFile
       args:
-        RUNAS: deploy
+        DEPLOY: ${DEPLOY}
     ports:
       - 3000:3000
     volumes:
@@ -19,15 +19,17 @@ services:
     environment:
       - 'DB_PORT=3306'
       - 'DB_HOST=database'
+    env_file:
+      - .env
 
   database:
     image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: mahamaha1.1
-      MYSQL_USER: mahir
-      MYSQL_PASSWORD: Mahir12345
-      MYSQL_DATABASE: user_managment
-      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST}
     container_name: mysql-database
     networks:
       - my_network
